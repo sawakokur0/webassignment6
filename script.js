@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const soundButton = document.getElementById('book-class-sound');
     
     if (soundButton) {
-        const clickSound = new Audio(click.wav); //
+        const clickSound = new Audio('sounds/click.wav'); //
         clickSound.load(); 
 
         soundButton.addEventListener('click', (e) => {
