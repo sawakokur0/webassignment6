@@ -1,27 +1,10 @@
-// Wait for the entire HTML document to be loaded and parsed
 document.addEventListener('DOMContentLoaded', () => {
-
-    // =========================================================================
-    // GLOBAL HELPERS (Used by multiple features)
-    // =========================================================================
-
-    /**
-     * Checks if a string is a valid email address.
-     * @param {string} email - The email string to validate.
-     * @returns {boolean} - True if valid, false otherwise.
-     */
     function isValidEmail(email) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
-    /**
-     * Displays a validation error message for a form input.
-     * @param {HTMLElement} input - The input element with an error.
-     * @param {string} message - The error message to display.
-     */
     function showError(input, message) {
-        // Assumes the error message element is the *next* sibling
         const feedback = input.nextElementSibling; 
         input.classList.add('is-invalid');
         if (feedback && feedback.classList.contains('invalid-feedback')) {
@@ -29,11 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
             feedback.style.display = 'block'; // Make it visible
         }
     }
-
-    /**
-     * Clears a validation error message for a form input.
-     * @param {HTMLElement} input - The input element to clear.
-     */
     function clearError(input) {
         const feedback = input.nextElementSibling;
         input.classList.remove('is-invalid');
@@ -45,12 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================================================================
-    // FEATURE 1: DAY/NIGHT THEME TOGGLE (All Pages)
-    // Assignment 6: Part 1.1 (Dynamic Style Changes)
+    // Dynamic Style Changes
     // =========================================================================
     const themeToggleButton = document.getElementById('theme-toggle');
     if (themeToggleButton) {
-        // On load, check localStorage for a saved theme preference
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'night') {
             document.body.classList.add('night-mode');
@@ -59,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
             themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
         }
 
-        // Add click listener to toggle the theme
         themeToggleButton.addEventListener('click', () => {
             document.body.classList.toggle('night-mode');
             
@@ -70,14 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
             }
-            // Save the user's preference
             localStorage.setItem('theme', theme);
         });
     }
 
     // =========================================================================
-    // FEATURE 2: KEYBOARD NAVIGATION (All Pages)
-    // Assignment 6: Part 1.2 (Keyboard Event Handling)
+    // Keyboard Event Handling
     // =========================================================================
     const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
     if (navLinks.length > 0) {
@@ -95,8 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // FEATURE 3: "READ MORE" TOGGLE (about.html)
-    // Assignment 6: Part 1.1 (Manipulating Attributes)
+    // Manipulating Attributes
     // =========================================================================
     const readMoreBtn = document.getElementById('read-more-btn');
     const readMoreContent = document.getElementById('read-more-content');
@@ -109,8 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // FEATURE 4: DYNAMIC TRAINER CARDS (trainers.html)
-    // Assignment 6: Part 1.3 (Objects, Arrays, Loops, Higher-Order Functions)
+    // Objects, Arrays, Loops, Higher-Order Functions
     // =========================================================================
     const trainersGrid = document.getElementById('trainers-grid');
     if (trainersGrid) {
@@ -146,9 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // FEATURE 5: SCHEDULE FILTER (schedule.html)
-    // Assignment 6: Part 1.2 (Switch Statements)
-    // (This is your original code, moved from inline script)
+    // Switch Statements
     // =========================================================================
     const filterButtons = document.querySelectorAll('#filter-buttons .btn-check');
     const scheduleRows = document.querySelectorAll('#schedule-body tr');
@@ -160,17 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 scheduleRows.forEach(row => {
                     const category = row.dataset.category;
-
-                    // Using a switch statement as required by the assignment
                     switch (filter) {
                         case 'all':
-                            row.style.display = ''; // Show all rows
+                            row.style.display = '';
                             break;
                         case category:
-                            row.style.display = ''; // Show matching category
+                            row.style.display = ''; 
                             break;
                         default:
-                            row.style.display = 'none'; // Hide non-matching
+                            row.style.display = 'none'; 
                     }
                 });
             });
@@ -178,11 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // FEATURE 6: CONTACT FORM VALIDATION (contact.html)
-    // Assignment 6: Part 1.2 (Responding to Events with Callbacks)
-    // (This is your new validation code)
+    // Responding to Events with Callbacks
     // =========================================================================
-    const contactForm = document.getElementById('contact-form'); // Changed ID to match my HTML
+    const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault(); // Stop form submission
@@ -233,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Add reset button functionality
         const soundButton = document.getElementById('book-class-sound');
     
     if (soundButton) {
@@ -259,37 +223,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // =========================================================================
-    // FEATURE 7: PLAY SOUND ON CLICK (index.html)
-    // Assignment 6: Part 1.3 (Play Sounds)
+    // Play Sounds
     // =========================================================================
     const soundButton = document.getElementById('book-class-sound');
     if (soundButton) {
-        const clickSound = new Audio(click.wav); // Assumes you have this file
+        const clickSound = new Audio('sounds/click.wav');
         
         soundButton.addEventListener('click', (e) => {
-            // Uncomment preventDefault if you don't want the link to work
-            // e.preventDefault(); 
             clickSound.play()
                 .catch(error => console.warn("Audio file not found or user hasn't interacted."));
         });
     }
 
     // =========================================================================
-    // FEATURE 8: SUBSCRIPTION MODAL (Your new code)
-    // Assignment 6: Part 1.2 (Event Listeners)
+    // Event Listeners
     // =========================================================================
     const subscribeBtn = document.getElementById('subscribeBtn');
     const subscriptionModalEl = document.getElementById('subscriptionModal');
     if (subscribeBtn && subscriptionModalEl) {
         const subscriptionModal = new bootstrap.Modal(subscriptionModalEl);
 
-        // Show the modal on button click
         subscribeBtn.addEventListener('click', (event) => {
             event.preventDefault();
             subscriptionModal.show();
         });
 
-        // Handle the form submission inside the modal
         const subscriptionForm = document.getElementById('subscriptionForm');
         if (subscriptionForm) {
             subscriptionForm.addEventListener('submit', (event) => {
@@ -297,12 +255,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const emailInput = document.getElementById('subEmail');
                 const email = emailInput.value;
                 
-                if (isValidEmail(email)) { // Re-using our helper function
+                if (isValidEmail(email)) {
                     alert(`Thank you for subscribing with ${email}!`);
                     subscriptionModal.hide();
                     subscriptionForm.reset();
                 } else {
-                    // You could use showError() here if you add the HTML
                     alert('Please enter a valid email address.');
                 }
             });
@@ -310,8 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // FEATURE 9: BACKGROUND COLOR CHANGER (Your new code)
-    // Assignment 6: Part 1.1 (Dynamic Style Changes)
+    // Dynamic Style Changes
     // =========================================================================
     const colorChangeBtn = document.getElementById('colorChangeBtn');
     if (colorChangeBtn) {
@@ -325,8 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // FEATURE 10: LIVE DATE/TIME DISPLAY (Your new code)
-    // Assignment 6: Part 1.1 (Modify content dynamically)
+    // Modify content dynamically
     // =========================================================================
     const dateTimeDisplay = document.getElementById('datetime-display');
     if (dateTimeDisplay) {
@@ -343,8 +298,8 @@ document.addEventListener('DOMContentLoaded', () => {
             dateTimeDisplay.textContent = now.toLocaleDateString('en-US', options);
         }
         
-        updateDateTime(); // Run once on load
-        setInterval(updateDateTime, 1000); // Update every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
     }
 
 });
